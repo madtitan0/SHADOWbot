@@ -8,9 +8,8 @@ import datetime
 # --- Configuration ---
 class Config:
     SYMBOLS = ["GC=F"] 
-    # API Limit: Last 730 days from Feb 2026 = Start ~Feb 15 2024.
-    # Setting to March 1st 2024 to be 100% safe and ensure data integrity.
-    START_DATE = "2024-03-01" 
+    # API Limit: Last 730 days. Max valid start ~Feb 17 2024.
+    START_DATE = "2024-02-17" 
     END_DATE = "2026-02-15"
     INTERVAL = "1h"    
     
@@ -269,8 +268,9 @@ class Backtester:
         df_report.to_csv(csv_filename, index=False)
         
         # --- Generate Markdown Report ---
-        md_content = "# Full History Backtest Report (Mar 2024 - Feb 2026)\n\n"
-        md_content += "*Status: Verified Real Market Data (Yahoo Finance GC=F).*\n\n"
+        md_content = "# Detailed Backtest Report (V4 Later Version)\n\n"
+        md_content += f"*Period: {Config.START_DATE} to {Config.END_DATE} (Max Available Real Data)*\n\n"
+        md_content += "*Strategy: V4 'Hedge Fund Grade' (ADX Filter + Dynamic Risk Scaler)*\n\n"
         
         md_content += "## System Configuration\n"
         md_content += f"- **Strategy**: V4 (ADX Filter + Risk Scaler)\n"
@@ -295,9 +295,9 @@ class Backtester:
         md_content += "\n## Detailed Monthly Breakdown\n\n"
         md_content += df_report.to_markdown(index=False)
         
-        with open("backtest_report_2024_2026.md", "w") as f:
+        with open("backtest_report_v4_later_2024_2026.md", "w") as f:
             f.write(md_content)
-        print("\nMarkdown Report Generated: backtest_report_2024_2026.md")
+        print("\nMarkdown Report Generated: backtest_report_v4_later_2024_2026.md")
 
         try:
             desktop = os.path.expanduser("~/Desktop")
